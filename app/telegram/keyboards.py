@@ -89,27 +89,29 @@ class Keyboards:
         return InlineKeyboardMarkup(keyboard)
     
     @staticmethod
+    @staticmethod
     def time_selection(available_times: list):
-        """Teclado para seleção de horário"""
         keyboard = []
         row = []
-        
-        for i, time_slot in enumerate(available_times):
-            row.append(InlineKeyboardButton(
-                time_slot['time'],
-                callback_data=f"time_{time_slot['time']}"
-            ))
-            
-            # 3 horários por linha
+
+        for i, time_str in enumerate(available_times):
+            row.append(
+                InlineKeyboardButton(
+                    time_str,
+                    callback_data=f"time_{time_str}"
+                )
+            )
+
             if (i + 1) % 3 == 0:
                 keyboard.append(row)
                 row = []
-        
-        if row:  # Adiciona linha incompleta
+
+        if row:
             keyboard.append(row)
-        
+
         keyboard.append([InlineKeyboardButton("« Voltar", callback_data="select_date")])
         return InlineKeyboardMarkup(keyboard)
+
     
     @staticmethod
     def appointment_actions(appointment_id: int, can_cancel: bool = True):
